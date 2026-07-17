@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FBS Prime — Dashboard de Campanhas</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0D2B4E;
+    --navy2:   #112F56;
+    --gold:    #C9A84C;
+    --gold2:   #E8C46A;
+    --white:   #FFFFFF;
+    --offwhite:#F4F7FB;
+    --muted:   #8FA3BC;
+    --border:  rgba(201,168,76,0.18);
+    --success: #2ECC71;
+    --danger:  #E74C3C;
+    --warn:    #F39C12;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(201,168,76,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0A2240 0%, #0D2B4E 60%, #112F56 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .periodo-badge {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold2);
+    letter-spacing: 0.3px;
+  }
+
+  .update-dot {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 6px var(--success);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-2px);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card.highlight {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+  }
+
+  .card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  .card.highlight .card-value {
+    color: var(--gold2);
+  }
+
+  .card-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .card-icon {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    font-size: 20px;
+    opacity: 0.25;
+  }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .status-ok    { background: rgba(46,204,113,0.12); color: #2ECC71; border: 1px solid rgba(46,204,113,0.2); }
+  .status-warn  { background: rgba(243,156,18,0.12); color: #F39C12; border: 1px solid rgba(243,156,18,0.2); }
+  .status-bad   { background: rgba(231,76,60,0.12);  color: #E74C3C; border: 1px solid rgba(231,76,60,0.2); }
+
+  /* ── RECOMENDAÇÃO ── */
+  .rec-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.4rem 1.8rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .rec-icon { font-size: 28px; flex-shrink: 0; }
+
+  .rec-content { flex: 1; }
+
+  .rec-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .rec-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .table-header {
+    padding: 1.2rem 1.8rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .table-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  thead th {
+    background: rgba(255,255,255,0.03);
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  tbody td {
+    padding: 0.9rem 1.2rem;
+    color: var(--white);
+    white-space: nowrap;
+  }
+
+  .td-muted { color: var(--muted); }
+
+  .td-gold { color: var(--gold2); font-weight: 600; }
+
+  .td-good { color: #2ECC71; font-weight: 600; }
+  .td-bad  { color: #E74C3C; font-weight: 600; }
+  .td-warn { color: #F39C12; font-weight: 600; }
+
+  /* ── LOADING STATE ── */
+  .loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(201,168,76,0.15);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .footer-brand {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── ERRO ── */
+  .error-box {
+    background: rgba(231,76,60,0.08);
+    border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: #E74C3C;
+    font-size: 13px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-value { font-size: 1.6rem; }
+    .header-right { display: none; }
+    table { font-size: 11px; }
+    thead th, tbody td { padding: 0.7rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-mark">FBS</div>
+    <div class="logo-text">
+      <span class="logo-title">FBS Prime</span>
+      <span class="logo-sub">Dashboard de Campanhas</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="periodo-badge" id="periodo-badge">Carregando...</div>
+    <div class="update-dot">
+      <div class="dot"></div>
+      <span id="ultima-atualizacao">Atualizando...</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="conteudo">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Carregando dados das campanhas...</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Atualizado automaticamente a cada hora &nbsp;·&nbsp;
+  <span class="footer-brand">FBS Prime Solutions</span>
+  &nbsp;·&nbsp; Gestão de Tráfego Pago
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURAÇÃO — substitua pelo ID e chave corretos
+// ═══════════════════════════════════════════════════════
+const SHEET_ID  = '1FBfGhUWCp7b-CPXFYENg72K8HdVBBbJ_BLdt-P3Jclo';
+const ABA       = 'FBS_Prime';
+const API_KEY   = 'AIzaSyC_YBo_sy5QaG8kDDrPYaLt2YcPhR1pjN0';
+const META_CPL  = 2.00;
+
+// ═══════════════════════════════════════════════════════
+// BUSCA OS DADOS DO GOOGLE SHEETS
+// ═══════════════════════════════════════════════════════
+async function fetchDados() {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${ABA}?key=${API_KEY}`;
+  const res  = await fetch(url);
+  if (!res.ok) throw new Error(`Erro ao buscar dados: ${res.status}`);
+  const json = await res.json();
+  const rows  = json.values || [];
+  if (rows.length < 2) throw new Error('Sem dados na planilha');
+
+  const headers = rows[0];
+  const dataRows = rows.slice(1);
+
+  // Pega a linha mais recente (última)
+  const ultima = dataRows[dataRows.length - 1];
+  const obj = {};
+  headers.forEach((h, i) => obj[h] = ultima[i] || '');
+  return { ultima: obj, historico: dataRows.map(r => { const o = {}; headers.forEach((h,i) => o[h] = r[i]||''); return o; }) };
+}
+
+// ═══════════════════════════════════════════════════════
+// FORMATA VALORES
+// ═══════════════════════════════════════════════════════
+const fmt = {
+  brl: v => `R$ ${parseFloat(v||0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2})}`,
+  num: v => parseInt(v||0).toLocaleString('pt-BR'),
+  pct: v => `${parseFloat(v||0).toFixed(2)}%`,
+  dec: v => parseFloat(v||0).toFixed(2),
+};
+
+function classCPL(cpl) {
+  const v = parseFloat(cpl);
+  if (v === 0) return 'td-muted';
+  if (v <= META_CPL) return 'td-good';
+  if (v <= META_CPL * 1.5) return 'td-warn';
+  return 'td-bad';
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDERIZA O DASHBOARD
+// ═══════════════════════════════════════════════════════
+function render({ ultima, historico }) {
+  const d = ultima;
+
+  // Header
+  document.getElementById('periodo-badge').textContent = d.periodo || 'Mês atual';
+  document.getElementById('ultima-atualizacao').textContent =
+    `Atualizado ${d.data_atualizacao || '—'}`;
+
+  // Status
+  const recEmoji = (d.recomendacao||'').startsWith('🔴') ? '🔴' :
+                   (d.recomendacao||'').startsWith('🟡') ? '🟡' : '✅';
+  const statusClass = recEmoji === '🔴' ? 'status-bad' :
+                      recEmoji === '🟡' ? 'status-warn' : 'status-ok';
+
+  const cplNum = parseFloat(d.cpl||0);
+  const cplClass = cplNum === 0 ? '' : cplNum <= META_CPL ? 'status-ok' : cplNum <= META_CPL*1.5 ? 'status-warn' : 'status-bad';
+
+  // Histórico das últimas 10 linhas para tabela
+  const recentes = historico.slice(-10).reverse();
+
+  document.getElementById('conteudo').innerHTML = `
+
+    <!-- KPIs PRINCIPAIS -->
+    <div class="section-label">Métricas do período</div>
+    <div class="cards-grid">
+
+      <div class="card highlight">
+        <div class="card-icon">💰</div>
+        <div class="card-label">Gasto Total</div>
+        <div class="card-value">${fmt.brl(d.gasto_total)}</div>
+        <div class="card-sub">Hoje: ${fmt.brl(d.gasto_hoje)}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <div class="card-label">Leads Gerados</div>
+        <div class="card-value">${fmt.num(d.leads)}</div>
+        <div class="card-sub">No mês atual</div>
+      </div>
+
+      <div class="card highlight">
+        <div class="card-icon">🎯</div>
+        <div class="card-label">CPL</div>
+        <div class="card-value">${fmt.brl(d.cpl)}</div>
+        <div class="card-sub">
+          <span class="status-badge ${cplClass}">
+            Meta: ${fmt.brl(META_CPL)}
+          </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <div class="card-label">CTR</div>
+        <div class="card-value">${fmt.pct(d.ctr)}</div>
+        <div class="card-sub">Taxa de cliques</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🖱️</div>
+        <div class="card-label">CPC</div>
+        <div class="card-value">${fmt.brl(d.cpc)}</div>
+        <div class="card-sub">Custo por clique</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <div class="card-label">Impressões</div>
+        <div class="card-value">${fmt.num(d.impressoes)}</div>
+        <div class="card-sub">Alcance: ${fmt.num(d.alcance)}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-label">Frequência</div>
+        <div class="card-value">${fmt.dec(d.frequencia)}</div>
+        <div class="card-sub">Média por pessoa</div>
+      </div>
+
+      <div class="card highlight">
+        <div class="card-icon">📊</div>
+        <div class="card-label">ROAS</div>
+        <div class="card-value">${fmt.dec(d.roas)}x</div>
+        <div class="card-sub">Retorno sobre investimento</div>
+      </div>
+
+    </div>
+
+    <!-- RECOMENDAÇÃO -->
+    <div class="section-label">Análise automática</div>
+    <div class="rec-box">
+      <div class="rec-icon">${recEmoji}</div>
+      <div class="rec-content">
+        <div class="rec-title">Recomendação do sistema</div>
+        <div class="rec-text">${(d.recomendacao||'Sem dados disponíveis').replace(/^[🔴🟡✅⚪]\s*/,'')}</div>
+      </div>
+      <span class="status-badge ${statusClass}">
+        ${d.status_orcamento || ''}
+      </span>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="section-label">Histórico recente</div>
+    <div class="table-wrap">
+      <div class="table-header">
+        <span class="table-title">Registros por atualização</span>
+        <span class="table-sub">Últimas ${recentes.length} atualizações</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Atualização</th>
+              <th>Gasto Total</th>
+              <th>Gasto Hoje</th>
+              <th>Leads</th>
+              <th>CPL</th>
+              <th>CTR</th>
+              <th>CPC</th>
+              <th>Impressões</th>
+              <th>Alcance</th>
+              <th>Freq.</th>
+              <th>ROAS</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recentes.map(r => `
+              <tr>
+                <td class="td-muted">${r.data_atualizacao || '—'}</td>
+                <td class="td-gold">${fmt.brl(r.gasto_total)}</td>
+                <td>${fmt.brl(r.gasto_hoje)}</td>
+                <td>${fmt.num(r.leads)}</td>
+                <td class="${classCPL(r.cpl)}">${fmt.brl(r.cpl)}</td>
+                <td>${fmt.pct(r.ctr)}</td>
+                <td>${fmt.brl(r.cpc)}</td>
+                <td class="td-muted">${fmt.num(r.impressoes)}</td>
+                <td class="td-muted">${fmt.num(r.alcance)}</td>
+                <td>${fmt.dec(r.frequencia)}</td>
+                <td>${fmt.dec(r.roas)}x</td>
+                <td>
+                  <span class="status-badge ${
+                    (r.status_orcamento||'').includes('Normal') ? 'status-ok' :
+                    (r.status_orcamento||'').includes('⚠️') ? 'status-warn' : 'status-ok'
+                  }">
+                    ${(r.status_orcamento||'—').replace('✅ ','').replace('⚠️ ','')}
+                  </span>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════
+// INICIALIZA
+// ═══════════════════════════════════════════════════════
+async function init() {
+  try {
+    const dados = await fetchDados();
+    render(dados);
+  } catch (err) {
+    document.getElementById('conteudo').innerHTML = `
+      <div class="error-box">
+        <p style="font-size:24px;margin-bottom:8px">⚠️</p>
+        <p style="font-weight:600;margin-bottom:4px">Erro ao carregar dados</p>
+        <p style="font-size:12px;opacity:0.7">${err.message}</p>
+        <p style="font-size:11px;margin-top:12px;opacity:0.5">
+          Verifique se SHEET_ID e API_KEY estão configurados corretamente no código.
+        </p>
+      </div>
+    `;
+  }
+}
+
+// Atualiza a cada 5 minutos
+init();
+setInterval(init, 5 * 60 * 1000);
+</script>
+</body>
+</html>
