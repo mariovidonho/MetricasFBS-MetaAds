@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FBS Prime â€” Dashboard de Campanhas</title>
+<title>FBS Prime — Dashboard de Campanhas</title>
 <meta name="description" content="Painel de controle executivo para monitoramento de gastos, leads, CPL e ROAS de campanhas da FBS Prime, integrado ao Google Sheets.">
 <link rel="icon" type="image/jpg" href="logo_fbs.jpg">
 <style>
@@ -11,14 +11,14 @@
 
   :root {
     --bg-main: #06080c; /* Fundo obsidiana azulado escuro */
-    --bg-surface: #0f121a; /* SuperfÃ­cie dos cards */
+    --bg-surface: #0f121a; /* Superfície dos cards */
     --bg-surface-hover: #161b26;
     --bg-header: rgba(6, 8, 12, 0.85);
     
-    /* Paleta oficial extraÃ­da da Logo da FBS */
+    /* Paleta oficial extraída da Logo da FBS */
     --accent-navy: #002d54; /* Azul Escuro da letra 'f' */
-    --accent-medium: #005a9c; /* Azul MÃ©dio do topo do 'S' */
-    --accent: #6fa8d6; /* Azul AÃ§o Claro da base do 'S' */
+    --accent-medium: #005a9c; /* Azul Médio do topo do 'S' */
+    --accent: #6fa8d6; /* Azul Aço Claro da base do 'S' */
     --accent-light: #9ec5e6;
     --accent-rgb: 111, 168, 214;
     --accent-muted: rgba(111, 168, 214, 0.08);
@@ -38,7 +38,7 @@
     --danger-bg: rgba(239, 68, 68, 0.06);
     --danger-border: rgba(239, 68, 68, 0.15);
     
-    --warning: #f59e0b; /* Amarelo Ã‚mbar */
+    --warning: #f59e0b; /* Amarelo Âmbar */
     --warning-bg: rgba(245, 158, 11, 0.06);
     --warning-border: rgba(245, 158, 11, 0.15);
     
@@ -62,7 +62,7 @@
     overflow-x: hidden;
   }
 
-  /* â”€â”€ HEADER â”€â”€ */
+  /* ── HEADER ── */
   header {
     background: var(--bg-header);
     backdrop-filter: blur(16px);
@@ -169,7 +169,7 @@
     50% { opacity: 0.4; transform: scale(0.9); }
   }
 
-  /* â”€â”€ MAIN CONTAINER â”€â”€ */
+  /* ── MAIN CONTAINER ── */
   main {
     max-width: 1400px;
     margin: 0 auto;
@@ -194,7 +194,7 @@
     margin-top: 4px;
   }
 
-  /* â”€â”€ SECTION LABEL â”€â”€ */
+  /* ── SECTION LABEL ── */
   .section-label {
     font-family: var(--font-display);
     font-size: 10px;
@@ -219,7 +219,7 @@
     background: linear-gradient(90deg, var(--border-color) 0%, transparent 100%);
   }
 
-  /* â”€â”€ KPI GRIDS â”€â”€ */
+  /* ── KPI GRIDS ── */
   .primary-kpis-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -335,7 +335,7 @@
     color: var(--text-secondary);
   }
 
-  /* â”€â”€ CHART CARD â”€â”€ */
+  /* ── CHART CARD ── */
   .chart-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -473,7 +473,7 @@
     overflow: visible;
   }
 
-  /* Efeito de desenho dinÃ¢mico */
+  /* Efeito de desenho dinâmico */
   @keyframes drawLine {
     to { stroke-dashoffset: 0; }
   }
@@ -511,7 +511,7 @@
     color: var(--accent);
   }
 
-  /* â”€â”€ EXECUTIVE INSIGHT CARD â”€â”€ */
+  /* ── EXECUTIVE INSIGHT CARD ── */
   .insight-box {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -579,7 +579,7 @@
     color: var(--text-primary);
   }
 
-  /* â”€â”€ HISTORY TABLE CARD â”€â”€ */
+  /* ── HISTORY TABLE CARD ── */
   .table-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -697,7 +697,7 @@
   .status-pill.status-warn { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border); }
   .status-pill.status-bad { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
 
-  /* â”€â”€ LOADING SKELETONS â”€â”€ */
+  /* ── LOADING SKELETONS ── */
   .skeleton-container {
     display: flex;
     flex-direction: column;
@@ -736,7 +736,7 @@
     100% { background-position: -200% 0; }
   }
 
-  /* â”€â”€ ERROR BOX â”€â”€ */
+  /* ── ERROR BOX ── */
   .error-box {
     background: var(--danger-bg);
     border: 1px solid var(--danger-border);
@@ -761,7 +761,7 @@
     line-height: 1.5;
   }
 
-  /* â”€â”€ FOOTER â”€â”€ */
+  /* ── FOOTER ── */
   footer {
     text-align: center;
     padding: 3rem;
@@ -777,7 +777,7 @@
     font-weight: 600;
   }
 
-  /* â”€â”€ RESPONSIVE ADAPTATIONS â”€â”€ */
+  /* ── RESPONSIVE ADAPTATIONS ── */
   @media (max-width: 1024px) {
     .primary-kpis-grid { grid-template-columns: repeat(2, 1fr); }
     .secondary-kpis-grid { grid-template-columns: repeat(2, 1fr); }
@@ -799,7 +799,7 @@
     .insight-badge { display: none; }
   }
 
-  /* â”€â”€ LOGIN BARRIER â”€â”€ */
+  /* ── LOGIN BARRIER ── */
   #login-overlay {
     position: fixed;
     inset: 0;
@@ -941,7 +941,7 @@
       <img src="logo_fbs.jpg" alt="Logo FBS">
     </div>
     <h2 class="login-title">Acesso Restrito</h2>
-    <p class="login-subtitle">Insira sua credencial para acessar o painel de performance e relatÃ³rios.</p>
+    <p class="login-subtitle">Insira sua credencial para acessar o painel de performance e relatórios.</p>
     
     <div class="login-input-group">
       <input type="password" id="login-password" class="login-input" placeholder="Senha de Acesso" onkeydown="if(event.key === 'Enter') attemptLogin()">
@@ -953,7 +953,7 @@
 
 <header>
   <div class="logo-area">
-    <!-- RenderizaÃ§Ã£o perfeita da imagem oficial do logo FBS do Desktop -->
+    <!-- Renderização perfeita da imagem oficial do logo FBS do Desktop -->
     <div class="logo-badge-container">
       <img src="logo_fbs.jpg" alt="Logo FBS" class="logo-img">
     </div>
@@ -974,11 +974,11 @@
 <main>
   <div class="dashboard-title-area">
     <h1 class="dashboard-main-title" id="main-title">Controle de Performance</h1>
-    <p class="dashboard-main-subtitle" id="main-subtitle">GestÃ£o de TrÃ¡fego Pago & OtimizaÃ§Ã£o de ROI</p>
+    <p class="dashboard-main-subtitle" id="main-subtitle">Gestão de Tráfego Pago & Otimização de ROI</p>
   </div>
 
   <div id="conteudo">
-    <!-- Premium Shimmer Skeletons por padrÃ£o -->
+    <!-- Premium Shimmer Skeletons por padrão -->
     <div class="skeleton-container">
       <div class="skeleton-header-placeholder"></div>
       <div class="skeleton-grid">
@@ -995,9 +995,9 @@
 </main>
 
 <footer>
-  Atualizado automaticamente a cada hora &nbsp;Â·&nbsp;
+  Atualizado automaticamente a cada hora &nbsp;·&nbsp;
   <span class="footer-brand">FBS Prime Solutions</span>
-  &nbsp;Â·&nbsp; GestÃ£o de TrÃ¡fego Pago
+  &nbsp;·&nbsp; Gestão de Tráfego Pago
 </footer>
 
 <script>
@@ -1028,21 +1028,21 @@ function formatarDataSP(dataStr) {
     return dataStr;
   }
 }
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// CONFIGURAÃ‡ÃƒO â€” substitua pelo ID e chave corretos
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
+// CONFIGURAÇÃO — substitua pelo ID e chave corretos
+// ═══════════════════════════════════════════════════════
 const SHEET_ID  = '1R57uLnST_AiuifWXfdCcBJc6ubNLypFXsDA67twyzRM';
 const ABA       = 'FBS_Prime';
 const API_KEY   = 'AIzaSyC_YBo_sy5QaG8kDDrPYaLt2YcPhR1pjN0';
 const META_CPL  = 2.00;
 
-// Estado global para cache e controle de grÃ¡ficos
+// Estado global para cache e controle de gráficos
 let cachedData = null;
 let currentMetric = 'cpl';
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 // BUSCA OS DADOS DO GOOGLE SHEETS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 async function fetchDados() {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${ABA}?key=${API_KEY}`;
   const res  = await fetch(url);
@@ -1054,7 +1054,7 @@ async function fetchDados() {
   const headers = rows[0];
   const dataRows = rows.slice(1);
 
-  // Pega a linha mais recente (Ãºltima)
+  // Pega a linha mais recente (última)
   const ultima = dataRows[dataRows.length - 1];
   const obj = {};
   headers.forEach((h, i) => obj[h] = ultima[i] || '');
@@ -1068,9 +1068,9 @@ async function fetchDados() {
   };
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 // FORMATA VALORES
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 const fmt = {
   brl: v => `R$ ${parseFloat(v||0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2})}`,
   num: v => parseInt(v||0).toLocaleString('pt-BR'),
@@ -1124,31 +1124,31 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 // RENDERIZA O DASHBOARD E CONTROLES
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
 function render({ ultima, historico }) {
   const d = ultima;
 
   // Header
-  document.getElementById('periodo-badge').textContent = d.periodo || 'MÃªs atual';
-  document.getElementById('ultima-atualizacao').textContent = `Atualizado ${d.data_atualizacao || 'â€”'}`;
+  document.getElementById('periodo-badge').textContent = d.periodo || 'Mês atual';
+  document.getElementById('ultima-atualizacao').textContent = `Atualizado ${d.data_atualizacao || '—'}`;
 
-  // Status Classes para RecomendaÃ§Ãµes
-  const recEmoji = (d.recomendacao||'').startsWith('ðŸ”´') ? 'ðŸ”´' :
-                   (d.recomendacao||'').startsWith('ðŸŸ¡') ? 'ðŸŸ¡' : 'âœ…';
-  const statusClass = recEmoji === 'ðŸ”´' ? 'status-bad' :
-                      recEmoji === 'ðŸŸ¡' ? 'status-warn' : 'status-ok';
+  // Status Classes para Recomendações
+  const recEmoji = (d.recomendacao||'').startsWith('🔴') ? '🔴' :
+                   (d.recomendacao||'').startsWith('🟡') ? '🟡' : '✅';
+  const statusClass = recEmoji === '🔴' ? 'status-bad' :
+                      recEmoji === '🟡' ? 'status-warn' : 'status-ok';
 
   const cplNum = parseFloat(d.cpl||0);
   const cplClass = cplNum === 0 ? '' : cplNum <= META_CPL ? 'cpl-ok' : cplNum <= META_CPL*1.5 ? 'cpl-warn' : 'cpl-bad';
 
-  // HistÃ³rico das Ãºltimas 10 linhas para tabela
+  // Histórico das últimas 10 linhas para tabela
   const recentes = historico.slice(-10).reverse();
 
   document.getElementById('conteudo').innerHTML = `
     <!-- PRIMARY KPIS -->
-    <div class="section-label">MÃ©tricas Principais</div>
+    <div class="section-label">Métricas Principais</div>
     <div class="primary-kpis-grid">
       
       <div class="kpi-card accent-card">
@@ -1174,7 +1174,7 @@ function render({ ultima, historico }) {
           </svg>
         </div>
         <div class="kpi-value">${fmt.num(d.leads)}</div>
-        <div class="kpi-sub">MÃªs atual</div>
+        <div class="kpi-sub">Mês atual</div>
       </div>
 
       <div class="kpi-card accent-card ${cplClass}">
@@ -1207,7 +1207,7 @@ function render({ ultima, historico }) {
     </div>
 
     <!-- SECONDARY KPIS -->
-    <div class="section-label">Detalhes TÃ©cnicos</div>
+    <div class="section-label">Detalhes Técnicos</div>
     <div class="secondary-kpis-grid">
       
       <div class="kpi-card-secondary">
@@ -1223,26 +1223,26 @@ function render({ ultima, historico }) {
       </div>
 
       <div class="kpi-card-secondary">
-        <span class="kpi-label">ImpressÃµes</span>
+        <span class="kpi-label">Impressões</span>
         <div class="kpi-value-secondary">${fmt.num(d.impressoes)}</div>
         <div class="kpi-sub-secondary">Alcance: ${fmt.num(d.alcance)}</div>
       </div>
 
       <div class="kpi-card-secondary">
-        <span class="kpi-label">FrequÃªncia</span>
+        <span class="kpi-label">Frequência</span>
         <div class="kpi-value-secondary">${fmt.dec(d.frequencia)}</div>
-        <div class="kpi-sub-secondary">MÃ©dia por pessoa</div>
+        <div class="kpi-sub-secondary">Média por pessoa</div>
       </div>
 
     </div>
 
     <!-- DYNAMIC SVG CHART CARD -->
-    <div class="section-label">TendÃªncia de Resultados</div>
+    <div class="section-label">Tendência de Resultados</div>
     <div class="chart-card">
       <div class="chart-header">
         <div class="chart-title-area">
-          <span class="chart-title">EvoluÃ§Ã£o Temporal</span>
-          <span class="chart-subtitle">HistÃ³rico das Ãºltimas 10 atualizaÃ§Ãµes de campanha</span>
+          <span class="chart-title">Evolução Temporal</span>
+          <span class="chart-subtitle">Histórico das últimas 10 atualizações de campanha</span>
         </div>
         <div class="chart-tabs">
           <button id="tab-cpl" class="chart-tab active" onclick="switchChartMetric('cpl', this)">CPL</button>
@@ -1253,11 +1253,11 @@ function render({ ultima, historico }) {
       </div>
       <div class="chart-stats-row">
         <div class="chart-stat">
-          <span class="chart-stat-label">MÃ©dia do PerÃ­odo</span>
+          <span class="chart-stat-label">Média do Período</span>
           <span class="chart-stat-value" id="chart-avg-val">...</span>
         </div>
         <div class="chart-stat">
-          <span class="chart-stat-label">TendÃªncia (Var.)</span>
+          <span class="chart-stat-label">Tendência (Var.)</span>
           <span id="chart-trend-badge" class="trend-badge">0%</span>
         </div>
       </div>
@@ -1271,44 +1271,44 @@ function render({ ultima, historico }) {
       </div>
     </div>
 
-    <!-- RECOMENDAÃ‡ÃƒO -->
-    <div class="section-label">AnÃ¡lise Executiva</div>
+    <!-- RECOMENDAÇÃO -->
+    <div class="section-label">Análise Executiva</div>
     <div class="insight-box ${statusClass}">
       <div class="insight-accent"></div>
       <div class="insight-icon-area">
-        <span class="insight-icon">${recEmoji === 'ðŸ”´' ? 'ðŸš¨' : recEmoji === 'ðŸŸ¡' ? 'âš ï¸' : 'âš¡'}</span>
+        <span class="insight-icon">${recEmoji === '🔴' ? '🚨' : recEmoji === '🟡' ? '⚠️' : '⚡'}</span>
       </div>
       <div class="insight-body">
         <div class="insight-top">
-          <span class="insight-title">RecomendaÃ§Ã£o do Sistema</span>
+          <span class="insight-title">Recomendação do Sistema</span>
           <span class="insight-badge ${statusClass}">${d.status_orcamento || ''}</span>
         </div>
-        <p class="insight-text">${(d.recomendacao||'Sem recomendaÃ§Ãµes registradas no momento.').replace(/^[ðŸ”´ðŸŸ¡âœ…âšª]\s*/,'')}</p>
+        <p class="insight-text">${(d.recomendacao||'Sem recomendações registradas no momento.').replace(/^[🔴🟡✅⚪]\s*/,'')}</p>
       </div>
     </div>
 
-    <!-- TABELA HISTÃ“RICO -->
-    <div class="section-label">HistÃ³rico de Registros</div>
+    <!-- TABELA HISTÓRICO -->
+    <div class="section-label">Histórico de Registros</div>
     <div class="table-card">
       <div class="table-header">
         <div>
-          <span class="table-title">Banco de Dados de AtualizaÃ§Ãµes</span>
-          <span class="table-subtitle">Dados cronolÃ³gicos de desempenho salvos pelo sistema</span>
+          <span class="table-title">Banco de Dados de Atualizações</span>
+          <span class="table-subtitle">Dados cronológicos de desempenho salvos pelo sistema</span>
         </div>
-        <span class="table-badge">Ãšltimas ${recentes.length} atualizaÃ§Ãµes</span>
+        <span class="table-badge">Últimas ${recentes.length} atualizações</span>
       </div>
       <div class="table-scroll-wrapper">
         <table>
           <thead>
             <tr>
-              <th>AtualizaÃ§Ã£o</th>
+              <th>Atualização</th>
               <th>Gasto Total</th>
               <th>Gasto Hoje</th>
               <th>Leads</th>
               <th>CPL</th>
               <th>CTR</th>
               <th>CPC</th>
-              <th>ImpressÃµes</th>
+              <th>Impressões</th>
               <th>ROAS</th>
               <th>Status</th>
             </tr>
@@ -1316,7 +1316,7 @@ function render({ ultima, historico }) {
           <tbody>
             ${recentes.map(r => `
               <tr>
-                <td class="td-muted font-mono">${r.data_atualizacao || 'â€”'}</td>
+                <td class="td-muted font-mono">${r.data_atualizacao || '—'}</td>
                 <td class="td-gold font-mono font-medium">${fmt.brl(r.gasto_total)}</td>
                 <td class="font-mono">${fmt.brl(r.gasto_hoje)}</td>
                 <td class="font-mono">${fmt.num(r.leads)}</td>
@@ -1328,9 +1328,9 @@ function render({ ultima, historico }) {
                 <td>
                   <span class="status-pill ${
                     (r.status_orcamento||'').includes('Normal') ? 'status-ok' :
-                    (r.status_orcamento||'').includes('âš ï¸') ? 'status-warn' : 'status-ok'
+                    (r.status_orcamento||'').includes('⚠️') ? 'status-warn' : 'status-ok'
                   }">
-                    ${(r.status_orcamento||'â€”').replace('âœ… ','').replace('âš ï¸ ','')}
+                    ${(r.status_orcamento||'—').replace('✅ ','').replace('⚠️ ','')}
                   </span>
                 </td>
               </tr>
@@ -1341,13 +1341,13 @@ function render({ ultima, historico }) {
     </div>
   `;
   
-  // Renderiza o grÃ¡fico inicial apÃ³s injetar a estrutura HTML
+  // Renderiza o gráfico inicial após injetar a estrutura HTML
   drawChart(currentMetric);
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// MOTOR DE GRÃFICOS SVG DINÃ‚MICOS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
+// MOTOR DE GRÁFICOS SVG DINÂMICOS
+// ═══════════════════════════════════════════════════════
 function drawChart(metricKey) {
   if (!cachedData || !cachedData.historico || cachedData.historico.length === 0) return;
 
@@ -1372,7 +1372,7 @@ function drawChart(metricKey) {
   const pathD = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
   const areaD = `${pathD} L ${points[points.length - 1].x} ${height - paddingY} L ${points[0].x} ${height - paddingY} Z`;
 
-  // Calcula estatÃ­sticas
+  // Calcula estatísticas
   const avg = values.reduce((a, b) => a + b, 0) / values.length;
   document.getElementById('chart-avg-val').textContent = formatMetric(avg, metricKey);
 
@@ -1390,7 +1390,7 @@ function drawChart(metricKey) {
 
   const trendBadge = document.getElementById('chart-trend-badge');
   trendBadge.className = `trend-badge ${neutral ? 'neutral' : isGood ? 'good' : 'bad'}`;
-  trendBadge.textContent = `${neutral ? '' : pctChange > 0 ? 'â†‘ ' : 'â†“ '}${pctChange > 0 ? '+' : ''}${pctChange.toFixed(1)}%`;
+  trendBadge.textContent = `${neutral ? '' : pctChange > 0 ? '↑ ' : '↓ '}${pctChange > 0 ? '+' : ''}${pctChange.toFixed(1)}%`;
 
   // Renderiza elementos do SVG
   const svg = document.getElementById('trend-chart');
@@ -1432,12 +1432,12 @@ function drawChart(metricKey) {
     </defs>
     <!-- Linhas de Grade -->
     <g>${gridLines}</g>
-    <!-- Ãrea DegradÃª -->
+    <!-- Área Degradê -->
     <path d="${areaD}" fill="url(#chart-area-grad)" />
-    <!-- Linha do GrÃ¡fico -->
+    <!-- Linha do Gráfico -->
     <path d="${pathD}" fill="none" stroke="var(--accent)" stroke-width="2.5" filter="url(#chart-glow)" 
           style="stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;" />
-    <!-- RÃ³tulos do Eixo X -->
+    <!-- Rótulos do Eixo X -->
     <g>${dateLabels}</g>
     <!-- Pontos -->
     <g>
@@ -1445,7 +1445,7 @@ function drawChart(metricKey) {
         <circle cx="${p.x}" cy="${p.y}" r="3.5" fill="var(--bg-surface)" stroke="var(--accent)" stroke-width="2" class="chart-dot" id="chart-dot-${idx}" />
       `).join('')}
     </g>
-    <!-- Guias e Ãreas Interativas -->
+    <!-- Guias e Áreas Interativas -->
     <g>
       ${points.map((p, idx) => `
         <line x1="${p.x}" y1="${paddingY}" x2="${p.x}" y2="${height - paddingY}" stroke="rgba(111, 168, 214, 0.2)" stroke-width="1" stroke-dasharray="3 3" id="chart-guide-${idx}" style="display: none;" />
@@ -1504,31 +1504,31 @@ function switchChartMetric(metric, btn) {
   drawChart(metric);
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// INICIALIZAÃ‡ÃƒO E LOOP
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
+// INICIALIZAÇÃO E LOOP
+// ═══════════════════════════════════════════════════════
 async function init() {
   try {
     const dados = await fetchDados();
-    cachedData = dados; // Salva dados no cache para evitar requisiÃ§Ãµes extras
+    cachedData = dados; // Salva dados no cache para evitar requisições extras
     render(dados);
   } catch (err) {
     console.error(err);
     document.getElementById('conteudo').innerHTML = `
       <div class="error-box">
-        <p class="error-title">âš ï¸ Erro ao carregar dados</p>
+        <p class="error-title">⚠️ Erro ao carregar dados</p>
         <p class="error-desc">${escapeHtml(err.message)}</p>
         <p class="error-desc" style="margin-top: 12px; opacity: 0.5;">
-          Certifique-se de que a planilha pÃºblica SHEET_ID e a API_KEY no cÃ³digo estÃ£o configuradas corretamente.
+          Certifique-se de que a planilha pública SHEET_ID e a API_KEY no código estão configuradas corretamente.
         </p>
       </div>
     `;
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// AUTENTICAÃ‡ÃƒO FRONTEND
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════
+// AUTENTICAÇÃO FRONTEND
+// ═══════════════════════════════════════════════════════
 const AUTH_PASS = 'fbs2026'; // Senha mock para a barreira
 
 function attemptLogin() {
@@ -1548,7 +1548,7 @@ function unlockDashboard() {
   const overlay = document.getElementById('login-overlay');
   overlay.classList.add('hidden');
   
-  // Aguarda a animaÃ§Ã£o de fade out terminar
+  // Aguarda a animação de fade out terminar
   setTimeout(() => {
     overlay.style.display = 'none';
     init(); // Inicia a busca de dados do Google Sheets
@@ -1556,7 +1556,7 @@ function unlockDashboard() {
   }, 500);
 }
 
-// Verifica sessÃ£o ao carregar a pÃ¡gina
+// Verifica sessão ao carregar a página
 if (sessionStorage.getItem('fbs_auth') === 'true') {
   document.getElementById('login-overlay').style.display = 'none';
   init();
@@ -1568,4 +1568,3 @@ if (sessionStorage.getItem('fbs_auth') === 'true') {
 </script>
 </body>
 </html>
-
