@@ -215,7 +215,159 @@
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
     .card-value { font-size: 1.5rem; }
     .header-right { display: none; }
-    .conta-btn { font-size: 11px; padding: 8px 10px; }
+    /* ── BARRA DE FILTROS ── */
+  .filter-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .filter-pills {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .filter-pill {
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .filter-pill:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .filter-pill.active {
+    background: linear-gradient(135deg, rgba(201,160,32,0.25), rgba(201,160,32,0.1));
+    color: var(--gold2);
+    border: 1px solid rgba(201,160,32,0.3);
+    font-weight: 600;
+  }
+
+  .filter-select {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-select:focus, .filter-select:hover {
+    border-color: var(--gold2);
+  }
+
+  .filter-custom-dates {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .filter-date-input {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    outline: none;
+    color-scheme: dark;
+  }
+
+  .filter-date-input:focus {
+    border-color: var(--gold2);
+  }
+
+  .date-separator {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .filter-btn-action {
+    background: rgba(201,160,32,0.15);
+    color: var(--gold2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn-action:hover {
+    background: var(--gold2);
+    color: var(--dark);
+  }
+
+  .empty-state-box {
+    background: var(--card-bg);
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    padding: 3rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .empty-state-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gold2);
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state-desc {
+    font-size: 12px;
+    color: var(--muted);
   }
 </style>
 </head>
@@ -246,6 +398,36 @@
     <button class="conta-btn" onclick="selecionarConta('BM_M_Terciaria', this)">🔹 Terciária</button>
   </div>
 
+  <!-- BARRA DE FILTROS TEMPORAIS -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Filtrar Período:</span>
+      <div class="filter-pills">
+        <button id="btn-filter-current" class="filter-pill active" onclick="setFilter('current_month')">Mês Atual</button>
+        <button id="btn-filter-last" class="filter-pill" onclick="setFilter('last_month')">Mês Passado</button>
+        <button id="btn-filter-30days" class="filter-pill" onclick="setFilter('30days')">Últimos 30 Dias</button>
+        <button id="btn-filter-all" class="filter-pill" onclick="setFilter('all')">Todo o Histórico</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Mês Específico:</span>
+      <select id="select-month-filter" class="filter-select" onchange="onSelectMonthChange(this.value)">
+        <option value="">Carregando meses...</option>
+      </select>
+    </div>
+
+    <div class="filter-group filter-custom-dates">
+      <span class="filter-label">Intervalo Personalizado:</span>
+      <div class="date-inputs">
+        <input type="date" id="filter-start-date" class="filter-date-input" onchange="applyCustomRange()">
+        <span class="date-separator">até</span>
+        <input type="date" id="filter-end-date" class="filter-date-input" onchange="applyCustomRange()">
+        <button id="btn-apply-range" class="filter-btn-action" onclick="applyCustomRange()">Aplicar</button>
+      </div>
+    </div>
+  </div>
+
   <div id="conteudo">
     <div class="loading"><div class="spinner"></div><p>Carregando dados das campanhas...</p></div>
   </div>
@@ -265,6 +447,184 @@ const META_CPL = 2.00;
 let contaAtual = 'BM_M_Central';
 let cacheContas = {};
 
+let cachedData = null;
+let activeFilter = 'current_month';
+let selectedCustomMonth = '';
+let customStartDate = null;
+let customEndDate = null;
+let currentFilteredData = [];
+
+const NOMES_MESES = [
+  'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+];
+
+function parseRowDate(dataStr) {
+  if (!dataStr || dataStr === '-') return null;
+  const str = String(dataStr).trim();
+  if (str.match(/^\d{4}-\d{2}-\d{2}/)) {
+    const parts = str.split(' ');
+    const d = parts[0];
+    const t = parts[1] || '00:00';
+    return new Date(`${d}T${t.length === 5 ? t + ':00' : t}`);
+  }
+  if (str.match(/^\d{2}\/\d{2}\/\d{4}/)) {
+    const parts = str.split(' ');
+    const [day, month, year] = parts[0].split('/');
+    const t = parts[1] || '00:00';
+    return new Date(`${year}-${month}-${day}T${t.length === 5 ? t + ':00' : t}`);
+  }
+  const parsed = new Date(str);
+  return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function extractMonths(historico) {
+  const monthsMap = new Map();
+  historico.forEach(row => {
+    const dt = parseRowDate(row.data_atualizacao);
+    if (dt) {
+      const y = dt.getFullYear();
+      const m = (dt.getMonth() + 1).toString().padStart(2, '0');
+      const key = `${y}-${m}`;
+      const label = `${NOMES_MESES[dt.getMonth()]} / ${y}`;
+      if (!monthsMap.has(key)) {
+        monthsMap.set(key, { key, label, year: y, month: dt.getMonth() });
+      }
+    }
+  });
+  return Array.from(monthsMap.values()).sort((a, b) => b.key.localeCompare(a.key));
+}
+
+function updateMonthSelectOptions(historico) {
+  const select = document.getElementById('select-month-filter');
+  if (!select) return;
+
+  const months = extractMonths(historico);
+  let html = '<option value="">Selecionar Mês...</option>';
+  months.forEach(m => {
+    const selected = (activeFilter === 'custom_month' && selectedCustomMonth === m.key) ? 'selected' : '';
+    html += `<option value="${m.key}" ${selected}>${m.label}</option>`;
+  });
+  select.innerHTML = html;
+}
+
+function filterHistorico(historico) {
+  if (!historico || historico.length === 0) return [];
+  if (activeFilter === 'all') return historico;
+
+  let maxDate = null;
+  const parsedRows = historico.map(r => {
+    const dt = parseRowDate(r.data_atualizacao);
+    if (dt && (!maxDate || dt > maxDate)) maxDate = dt;
+    return { row: r, dt };
+  }).filter(item => item.dt !== null);
+
+  if (!maxDate) return historico;
+
+  const refYear = maxDate.getFullYear();
+  const refMonth = maxDate.getMonth();
+
+  if (activeFilter === 'current_month') {
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === refYear && item.dt.getMonth() === refMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'last_month') {
+    const lastMonthDate = new Date(refYear, refMonth - 1, 1);
+    const targetYear = lastMonthDate.getFullYear();
+    const targetMonth = lastMonthDate.getMonth();
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === targetYear && item.dt.getMonth() === targetMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === '30days') {
+    const cutoff = new Date(maxDate.getTime() - (30 * 24 * 60 * 60 * 1000));
+    return parsedRows
+      .filter(item => item.dt >= cutoff)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'custom_month' && selectedCustomMonth) {
+    const [yStr, mStr] = selectedCustomMonth.split('-');
+    const targetYear = parseInt(yStr, 10);
+    const targetMonth = parseInt(mStr, 10) - 1;
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === targetYear && item.dt.getMonth() === targetMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'custom_range') {
+    const start = customStartDate ? new Date(customStartDate + 'T00:00:00') : null;
+    const end = customEndDate ? new Date(customEndDate + 'T23:59:59') : null;
+    return parsedRows
+      .filter(item => {
+        if (start && item.dt < start) return false;
+        if (end && item.dt > end) return false;
+        return true;
+      })
+      .map(item => item.row);
+  }
+
+  return historico;
+}
+
+function updateFilterUI() {
+  document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+  
+  if (activeFilter === 'current_month') {
+    const btn = document.getElementById('btn-filter-current');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === 'last_month') {
+    const btn = document.getElementById('btn-filter-last');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === '30days') {
+    const btn = document.getElementById('btn-filter-30days');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === 'all') {
+    const btn = document.getElementById('btn-filter-all');
+    if (btn) btn.classList.add('active');
+  }
+
+  const select = document.getElementById('select-month-filter');
+  if (select && activeFilter !== 'custom_month') {
+    select.value = '';
+  }
+}
+
+function setFilter(type) {
+  activeFilter = type;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
+
+function onSelectMonthChange(val) {
+  if (!val) return;
+  activeFilter = 'custom_month';
+  selectedCustomMonth = val;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
+
+function applyCustomRange() {
+  const startInput = document.getElementById('filter-start-date').value;
+  const endInput = document.getElementById('filter-end-date').value;
+  if (!startInput && !endInput) return;
+
+  activeFilter = 'custom_range';
+  customStartDate = startInput;
+  customEndDate = endInput;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
+
 async function fetchDados(aba) {
   if (cacheContas[aba]) return cacheContas[aba];
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${aba}?key=${API_KEY}`;
@@ -280,7 +640,6 @@ async function fetchDados(aba) {
   headers.forEach((h,i) => obj[h] = ultima[i]||'');
   const result = { ultima: obj, historico: dataRows.map(r => { const o={}; headers.forEach((h,i)=>o[h]=r[i]||''); return o; }) };
   cacheContas[aba] = result;
-  // Limpa cache após 4 minutos
   setTimeout(() => { delete cacheContas[aba]; }, 4*60*1000);
   return result;
 }
@@ -307,15 +666,52 @@ const nomesContas = {
 };
 
 function render({ ultima, historico }) {
-  const d = ultima;
-  document.getElementById('periodo-badge').textContent = d.periodo || 'Mês atual';
+  updateMonthSelectOptions(historico);
+  updateFilterUI();
+
+  const historicoFiltrado = filterHistorico(historico);
+  currentFilteredData = historicoFiltrado;
+
+  if (historicoFiltrado.length === 0) {
+    document.getElementById('periodo-badge').textContent = 'Sem registros';
+    document.getElementById('conteudo').innerHTML = `
+      <div class="empty-state-box">
+        <div class="empty-state-title">Nenhum dado encontrado para este período na conta ${nomesContas[contaAtual]}</div>
+        <p class="empty-state-desc">Tente selecionar outro mês ou ajuste o intervalo personalizado nas opções acima.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const d = historicoFiltrado[historicoFiltrado.length - 1];
+
+  let badgeText = d.periodo || 'Mês atual';
+  if (activeFilter === 'last_month') {
+    const dt = parseRowDate(d.data_atualizacao);
+    if (dt) badgeText = `Mês Passado (${NOMES_MESES[dt.getMonth()]}/${dt.getFullYear()})`;
+  } else if (activeFilter === 'current_month') {
+    const dt = parseRowDate(d.data_atualizacao);
+    if (dt) badgeText = `Mês Atual (${NOMES_MESES[dt.getMonth()]}/${dt.getFullYear()})`;
+  } else if (activeFilter === '30days') {
+    badgeText = 'Últimos 30 dias';
+  } else if (activeFilter === 'all') {
+    badgeText = 'Todo o Histórico';
+  } else if (activeFilter === 'custom_month' && selectedCustomMonth) {
+    const [yStr, mStr] = selectedCustomMonth.split('-');
+    const mIdx = parseInt(mStr, 10) - 1;
+    badgeText = `${NOMES_MESES[mIdx]} / ${yStr}`;
+  } else if (activeFilter === 'custom_range') {
+    badgeText = 'Intervalo Personalizado';
+  }
+
+  document.getElementById('periodo-badge').textContent = badgeText;
   document.getElementById('ultima-atualizacao').textContent = `Atualizado ${d.data_atualizacao||'—'}`;
 
   const recEmoji = (d.recomendacao||'').startsWith('🔴') ? '🔴' : (d.recomendacao||'').startsWith('🟡') ? '🟡' : '✅';
   const statusClass = recEmoji==='🔴' ? 'status-bad' : recEmoji==='🟡' ? 'status-warn' : 'status-ok';
   const cplNum = parseFloat(d.cpl||0);
   const cplClass = cplNum===0 ? '' : cplNum<=META_CPL ? 'status-ok' : cplNum<=META_CPL*1.5 ? 'status-warn' : 'status-bad';
-  const recentes = historico.slice(-10).reverse();
+  const recentes = [...historicoFiltrado].slice(-15).reverse();
 
   document.getElementById('conteudo').innerHTML = `
     <div class="section-label">Conta ${nomesContas[contaAtual]} — Métricas do período</div>
@@ -429,6 +825,7 @@ async function selecionarConta(aba, btn) {
   document.getElementById('conteudo').innerHTML = '<div class="loading"><div class="spinner"></div><p>Carregando...</p></div>';
   try {
     const dados = await fetchDados(aba);
+    cachedData = dados;
     render(dados);
   } catch(err) {
     document.getElementById('conteudo').innerHTML = `<div class="error-box"><p>⚠️ ${err.message}</p></div>`;
@@ -439,6 +836,7 @@ async function init() {
   cacheContas = {};
   try {
     const dados = await fetchDados(contaAtual);
+    cachedData = dados;
     render(dados);
   } catch(err) {
     document.getElementById('conteudo').innerHTML = `
