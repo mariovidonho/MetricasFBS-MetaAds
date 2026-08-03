@@ -930,6 +930,176 @@
   .login-error.visible {
     opacity: 1;
   }
+
+  /* ── BARRA DE FILTROS ── */
+  .filter-bar {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .filter-pills {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-main);
+    padding: 4px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+  }
+
+  .filter-pill {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--radius);
+    padding: 6px 14px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .filter-pill:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .filter-pill.active {
+    background: var(--accent-navy);
+    color: var(--accent);
+    border: 1px solid var(--border-accent);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 45, 84, 0.4);
+  }
+
+  .filter-select {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 6px 12px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .filter-select:focus, .filter-select:hover {
+    border-color: var(--accent);
+  }
+
+  .filter-custom-dates {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .filter-date-input {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 5px 10px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    outline: none;
+    transition: var(--transition);
+    color-scheme: dark;
+  }
+
+  .filter-date-input:focus {
+    border-color: var(--accent);
+  }
+
+  .date-separator {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .filter-btn-action {
+    background: var(--accent-navy);
+    color: var(--accent);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius);
+    padding: 6px 12px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .filter-btn-action:hover {
+    background: var(--accent);
+    color: var(--bg-main);
+  }
+
+  .empty-state-box {
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-accent);
+    border-radius: var(--radius);
+    padding: 3rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .empty-state-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--warning);
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 992px) {
+    .filter-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .filter-group {
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 </style>
 </head>
 <body>
@@ -975,6 +1145,36 @@
   <div class="dashboard-title-area">
     <h1 class="dashboard-main-title" id="main-title">Controle de Performance</h1>
     <p class="dashboard-main-subtitle" id="main-subtitle">Gestão de Tráfego Pago & Otimização de ROI</p>
+  </div>
+
+  <!-- BARRA DE FILTROS TEMPORAIS -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Filtrar Período:</span>
+      <div class="filter-pills">
+        <button id="btn-filter-current" class="filter-pill active" onclick="setFilter('current_month')">Mês Atual</button>
+        <button id="btn-filter-last" class="filter-pill" onclick="setFilter('last_month')">Mês Passado</button>
+        <button id="btn-filter-30days" class="filter-pill" onclick="setFilter('30days')">Últimos 30 Dias</button>
+        <button id="btn-filter-all" class="filter-pill" onclick="setFilter('all')">Todo o Histórico</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Mês Específico:</span>
+      <select id="select-month-filter" class="filter-select" onchange="onSelectMonthChange(this.value)">
+        <option value="">Carregando meses...</option>
+      </select>
+    </div>
+
+    <div class="filter-group filter-custom-dates">
+      <span class="filter-label">Intervalo Personalizado:</span>
+      <div class="date-inputs">
+        <input type="date" id="filter-start-date" class="filter-date-input" onchange="applyCustomRange()">
+        <span class="date-separator">até</span>
+        <input type="date" id="filter-end-date" class="filter-date-input" onchange="applyCustomRange()">
+        <button id="btn-apply-range" class="filter-btn-action" onclick="applyCustomRange()">Aplicar</button>
+      </div>
+    </div>
   </div>
 
   <div id="conteudo">
@@ -1036,9 +1236,190 @@ const ABA       = 'FBS_Prime';
 const API_KEY   = 'AIzaSyC_YBo_sy5QaG8kDDrPYaLt2YcPhR1pjN0';
 const META_CPL  = 2.00;
 
-// Estado global para cache e controle de gráficos
+// Estado global para cache, filtros e controle de gráficos
 let cachedData = null;
 let currentMetric = 'cpl';
+let activeFilter = 'current_month'; // 'current_month' | 'last_month' | '30days' | 'all' | 'custom_month' | 'custom_range'
+let selectedCustomMonth = '';
+let customStartDate = null;
+let customEndDate = null;
+let currentFilteredData = [];
+
+const NOMES_MESES = [
+  'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+];
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA DE FILTRAGEM TEMPORAL
+// ═══════════════════════════════════════════════════════
+function parseRowDate(dataStr) {
+  if (!dataStr || dataStr === '-') return null;
+  const str = String(dataStr).trim();
+  // YYYY-MM-DD HH:mm ou YYYY-MM-DD
+  if (str.match(/^\d{4}-\d{2}-\d{2}/)) {
+    const parts = str.split(' ');
+    const d = parts[0];
+    const t = parts[1] || '00:00';
+    return new Date(`${d}T${t.length === 5 ? t + ':00' : t}`);
+  }
+  // DD/MM/YYYY HH:mm ou DD/MM/YYYY
+  if (str.match(/^\d{2}\/\d{2}\/\d{4}/)) {
+    const parts = str.split(' ');
+    const [day, month, year] = parts[0].split('/');
+    const t = parts[1] || '00:00';
+    return new Date(`${year}-${month}-${day}T${t.length === 5 ? t + ':00' : t}`);
+  }
+  const parsed = new Date(str);
+  return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function extractMonths(historico) {
+  const monthsMap = new Map();
+  historico.forEach(row => {
+    const dt = parseRowDate(row.data_atualizacao);
+    if (dt) {
+      const y = dt.getFullYear();
+      const m = (dt.getMonth() + 1).toString().padStart(2, '0');
+      const key = `${y}-${m}`;
+      const label = `${NOMES_MESES[dt.getMonth()]} / ${y}`;
+      if (!monthsMap.has(key)) {
+        monthsMap.set(key, { key, label, year: y, month: dt.getMonth() });
+      }
+    }
+  });
+  return Array.from(monthsMap.values()).sort((a, b) => b.key.localeCompare(a.key));
+}
+
+function updateMonthSelectOptions(historico) {
+  const select = document.getElementById('select-month-filter');
+  if (!select) return;
+
+  const months = extractMonths(historico);
+  let html = '<option value="">Selecionar Mês...</option>';
+  months.forEach(m => {
+    const selected = (activeFilter === 'custom_month' && selectedCustomMonth === m.key) ? 'selected' : '';
+    html += `<option value="${m.key}" ${selected}>${m.label}</option>`;
+  });
+  select.innerHTML = html;
+}
+
+function filterHistorico(historico) {
+  if (!historico || historico.length === 0) return [];
+  if (activeFilter === 'all') return historico;
+
+  let maxDate = null;
+  const parsedRows = historico.map(r => {
+    const dt = parseRowDate(r.data_atualizacao);
+    if (dt && (!maxDate || dt > maxDate)) maxDate = dt;
+    return { row: r, dt };
+  }).filter(item => item.dt !== null);
+
+  if (!maxDate) return historico;
+
+  const refYear = maxDate.getFullYear();
+  const refMonth = maxDate.getMonth();
+
+  if (activeFilter === 'current_month') {
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === refYear && item.dt.getMonth() === refMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'last_month') {
+    const lastMonthDate = new Date(refYear, refMonth - 1, 1);
+    const targetYear = lastMonthDate.getFullYear();
+    const targetMonth = lastMonthDate.getMonth();
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === targetYear && item.dt.getMonth() === targetMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === '30days') {
+    const cutoff = new Date(maxDate.getTime() - (30 * 24 * 60 * 60 * 1000));
+    return parsedRows
+      .filter(item => item.dt >= cutoff)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'custom_month' && selectedCustomMonth) {
+    const [yStr, mStr] = selectedCustomMonth.split('-');
+    const targetYear = parseInt(yStr, 10);
+    const targetMonth = parseInt(mStr, 10) - 1;
+    return parsedRows
+      .filter(item => item.dt.getFullYear() === targetYear && item.dt.getMonth() === targetMonth)
+      .map(item => item.row);
+  }
+
+  if (activeFilter === 'custom_range') {
+    const start = customStartDate ? new Date(customStartDate + 'T00:00:00') : null;
+    const end = customEndDate ? new Date(customEndDate + 'T23:59:59') : null;
+    return parsedRows
+      .filter(item => {
+        if (start && item.dt < start) return false;
+        if (end && item.dt > end) return false;
+        return true;
+      })
+      .map(item => item.row);
+  }
+
+  return historico;
+}
+
+function updateFilterUI() {
+  document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+  
+  if (activeFilter === 'current_month') {
+    const btn = document.getElementById('btn-filter-current');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === 'last_month') {
+    const btn = document.getElementById('btn-filter-last');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === '30days') {
+    const btn = document.getElementById('btn-filter-30days');
+    if (btn) btn.classList.add('active');
+  } else if (activeFilter === 'all') {
+    const btn = document.getElementById('btn-filter-all');
+    if (btn) btn.classList.add('active');
+  }
+
+  const select = document.getElementById('select-month-filter');
+  if (select && activeFilter !== 'custom_month') {
+    select.value = '';
+  }
+}
+
+function setFilter(type) {
+  activeFilter = type;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
+
+function onSelectMonthChange(val) {
+  if (!val) return;
+  activeFilter = 'custom_month';
+  selectedCustomMonth = val;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
+
+function applyCustomRange() {
+  const startInput = document.getElementById('filter-start-date').value;
+  const endInput = document.getElementById('filter-end-date').value;
+  if (!startInput && !endInput) return;
+
+  activeFilter = 'custom_range';
+  customStartDate = startInput;
+  customEndDate = endInput;
+  updateFilterUI();
+  if (cachedData) {
+    render(cachedData);
+  }
+}
 
 // ═══════════════════════════════════════════════════════
 // BUSCA OS DADOS DO GOOGLE SHEETS
@@ -1128,10 +1509,46 @@ function escapeHtml(str) {
 // RENDERIZA O DASHBOARD E CONTROLES
 // ═══════════════════════════════════════════════════════
 function render({ ultima, historico }) {
-  const d = ultima;
+  updateMonthSelectOptions(historico);
+  updateFilterUI();
 
-  // Header
-  document.getElementById('periodo-badge').textContent = d.periodo || 'Mês atual';
+  const historicoFiltrado = filterHistorico(historico);
+  currentFilteredData = historicoFiltrado;
+
+  if (historicoFiltrado.length === 0) {
+    document.getElementById('periodo-badge').textContent = 'Sem registros';
+    document.getElementById('conteudo').innerHTML = `
+      <div class="empty-state-box">
+        <div class="empty-state-title">Nenhum dado encontrado para este período</div>
+        <p class="empty-state-desc">Tente selecionar outro mês ou ajuste o intervalo personalizado nas opções acima.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const d = historicoFiltrado[historicoFiltrado.length - 1];
+
+  // Header Período Badge dinâmico e inteligente
+  let badgeText = d.periodo || 'Mês atual';
+  if (activeFilter === 'last_month') {
+    const dt = parseRowDate(d.data_atualizacao);
+    if (dt) badgeText = `Mês Passado (${NOMES_MESES[dt.getMonth()]}/${dt.getFullYear()})`;
+  } else if (activeFilter === 'current_month') {
+    const dt = parseRowDate(d.data_atualizacao);
+    if (dt) badgeText = `Mês Atual (${NOMES_MESES[dt.getMonth()]}/${dt.getFullYear()})`;
+  } else if (activeFilter === '30days') {
+    badgeText = 'Últimos 30 dias';
+  } else if (activeFilter === 'all') {
+    badgeText = 'Todo o Histórico';
+  } else if (activeFilter === 'custom_month' && selectedCustomMonth) {
+    const [yStr, mStr] = selectedCustomMonth.split('-');
+    const mIdx = parseInt(mStr, 10) - 1;
+    badgeText = `${NOMES_MESES[mIdx]} / ${yStr}`;
+  } else if (activeFilter === 'custom_range') {
+    badgeText = 'Intervalo Personalizado';
+  }
+
+  document.getElementById('periodo-badge').textContent = badgeText;
   document.getElementById('ultima-atualizacao').textContent = `Atualizado ${d.data_atualizacao || '—'}`;
 
   // Status Classes para Recomendações
@@ -1143,8 +1560,8 @@ function render({ ultima, historico }) {
   const cplNum = parseFloat(d.cpl||0);
   const cplClass = cplNum === 0 ? '' : cplNum <= META_CPL ? 'cpl-ok' : cplNum <= META_CPL*1.5 ? 'cpl-warn' : 'cpl-bad';
 
-  // Histórico das últimas 10 linhas para tabela
-  const recentes = historico.slice(-10).reverse();
+  // Histórico de até 15 atualizações do período filtrado para tabela
+  const recentes = [...historicoFiltrado].slice(-15).reverse();
 
   document.getElementById('conteudo').innerHTML = `
     <!-- PRIMARY KPIS -->
@@ -1349,9 +1766,20 @@ function render({ ultima, historico }) {
 // MOTOR DE GRÁFICOS SVG DINÂMICOS
 // ═══════════════════════════════════════════════════════
 function drawChart(metricKey) {
-  if (!cachedData || !cachedData.historico || cachedData.historico.length === 0) return;
+  const dataset = (currentFilteredData && currentFilteredData.length > 0) ? currentFilteredData : (cachedData ? cachedData.historico : []);
+  if (!dataset || dataset.length === 0) return;
 
-  const chartData = [...cachedData.historico].slice(-10);
+  const maxPoints = 12;
+  let chartData = [];
+  if (dataset.length <= maxPoints) {
+    chartData = [...dataset];
+  } else {
+    const step = (dataset.length - 1) / (maxPoints - 1);
+    for (let i = 0; i < maxPoints; i++) {
+      const idx = Math.min(Math.round(i * step), dataset.length - 1);
+      chartData.push(dataset[idx]);
+    }
+  }
   const values = chartData.map(item => parseFloat(item[metricKey] || 0));
   
   const minVal = Math.min(...values);
