@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script>
+  (function() {
+    const host = window.location.hostname.toLowerCase();
+    if (host.includes('mpereira') && !window.location.pathname.includes('dashboard_mpereira')) {
+      window.location.replace('/dashboard_mpereira.html' + window.location.search);
+    } else if (host.includes('fbs') && !window.location.pathname.includes('index.html')) {
+      window.location.replace('/' + window.location.search);
+    }
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DSP Capital — Dashboard de Campanhas</title>
